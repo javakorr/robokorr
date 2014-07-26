@@ -1,5 +1,5 @@
 {
-    "name": "javakorr robot controll",
+    "name": "javakorr_robot",
     "version": "0.0.1",
     "dependencies": {
         "express": "4.6.x"
