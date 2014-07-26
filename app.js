@@ -11,6 +11,7 @@ var app = express();
 var COMMAND = 'DNTHNG';
 
 app.use(express.static(__dirname + '/public'));
+app.use(express.logger());
 
 app.get('/', function(req, res) {
     sendView(req, res, 'index');
@@ -33,4 +34,7 @@ app.get('/get_command', function(req, res) {
     res.end();
 });
 
-app.listen(2000);
+var port = process.env.PORT || 5000;
+app.listen(port, function() {
+    console.log("Listening on " + port);
+});
