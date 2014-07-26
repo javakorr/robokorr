@@ -11,7 +11,6 @@ var app = express();
 var COMMAND = 'DNTHNG';
 
 app.use(express.static(__dirname + '/public'));
-app.use(express.logger());
 
 app.get('/', function(req, res) {
     sendView(req, res, 'index');
