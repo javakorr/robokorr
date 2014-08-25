@@ -14,10 +14,12 @@ var COMMAND = 'DNTHNG';
 app.use(express.static(__dirname + '/public'));
 
 pg.connect(process.env.DATABASE_URL, function(err, client) {
-    var query = client.query('SELECT * FROM robokorr');
+    if (err) return console.error('Could not connect to postgres', err);
 
-    query.on('row', function(row) {
-        console.log(JSON.stringify(row));
+    client.query('SELECT * FROM robokorr', function(err, results) {
+        if (err) return console.error('Error running query', err);
+
+        COMMAND = results;
     });
 });
 
