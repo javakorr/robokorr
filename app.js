@@ -1,7 +1,6 @@
 var express = require('express'),
     fs = require('fs'),
-    orm = require('orm'),
-    current_command_model = require('./models/current_command_model'),
+    pg = require('pg'),
     sendView = function(req, res, view) {
         var fileContents = fs.readFileSync('views/' + view + '.html');
 
@@ -21,12 +20,15 @@ app.use(orm.express('postgres://uollbbgzkndlbm:TT_5A4FwOU9kJh6w42eymriU6m@ec2-54
 }));
 
 app.get('/', function(req, res) {
-    req.models.current_command_model.all(function(err, cmd) {
-        if (err) throw err;
+    pg.connect(process.env.DATABASE_URL, function(err, client) {
+        var query = client.query('SELECT * FROM robokorr');
 
-        COMMAND = cmd;
-        sendView(req, res, 'index');
+        query.on('row', function(row) {
+            console.log(JSON.stringify(row));
+        });
     });
+
+    sendView(req, res, 'index');
 });
 
 app.get('/move', function(req, res) {
