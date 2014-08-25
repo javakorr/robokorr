@@ -19,7 +19,7 @@ pg.connect(process.env.DATABASE_URL, function(err, client) {
     client.query('SELECT * FROM robokorr', function(err, results) {
         if (err) return console.error('Error running query', err);
 
-        COMMAND = results.rows[0];
+        COMMAND = results.rows[0].current_command;
     });
 });
 
