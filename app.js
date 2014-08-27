@@ -11,9 +11,9 @@ var app = express();
 
 app.use(express.static(__dirname + '/public'));
 
-client = pg.connect(process.env.DATABASE_URL, function(err) {
-    if (err) return console.error('Could not connect to postgres', err);
-});
+var client = new pg.Client(process.env.DATABASE_URL);
+
+client.connect();
 
 app.get('/', function(req, res) {
     sendView(req, res, 'index');
