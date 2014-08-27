@@ -9,18 +9,10 @@ var express = require('express'),
 
 var app = express();
 
-var COMMAND = 'DNTHNG';
-
 app.use(express.static(__dirname + '/public'));
 
-pg.connect(process.env.DATABASE_URL, function(err, client) {
+client = pg.connect(process.env.DATABASE_URL, function(err) {
     if (err) return console.error('Could not connect to postgres', err);
-
-    client.query('SELECT * FROM robokorr', function(err, results) {
-        if (err) return console.error('Error running query', err);
-
-        COMMAND = results.rows[0].current_command;
-    });
 });
 
 app.get('/', function(req, res) {
@@ -28,20 +20,34 @@ app.get('/', function(req, res) {
 });
 
 app.get('/move', function(req, res) {
-    COMMAND = 'MV';
-    res.send(200);
-    res.end();
+    client.query('UPDATE robokorr SET current_command = "MVFRWRD"', function(err, results) {
+        if (err) return console.error('Error running query', err);
+
+        console.log(results);
+
+        res.send(200);
+        res.end();
+    });
 });
 
 app.get('/stop', function(req, res) {
-    COMMAND = 'STP';
-    res.send(200);
-    res.end();
+    client.query('UPDATE robokorr SET current_command = "DNTHNG"', function(err, results) {
+        if (err) return console.error('Error running query', err);
+
+        console.log(results);
+
+        res.send(200);
+        res.end();
+    });
 });
 
 app.get('/get_command', function(req, res) {
-    res.send(COMMAND);
-    res.end();
+    client.query('SELECT * FROM robokorr', function(err, results) {
+        if (err) return console.error('Error running query', err);
+
+        res.send(results.rows[0].current_command);
+        res.end();
+    });
 });
 
 var port = process.env.PORT || 8000;
