@@ -50,8 +50,14 @@ app.get('/left', function(req, res) {
     client.query("UPDATE robokorr SET current_command = '%TRNLFT'", function(err, results) {
         if (err) return console.error('Error running query', err);
 
-        res.send(200);
-        res.end();
+        setTimeout(function() {
+            client.query("UPDATE robokorr SET current_command = '%DNTHNG'", function(err, results) {
+                if (err) return console.error('Error running query', err);
+
+                res.send(200);
+                res.end();
+            });
+        }, 2000);
     });
 });
 
@@ -59,8 +65,14 @@ app.get('/right', function(req, res) {
     client.query("UPDATE robokorr SET current_command = '%TRNRGHT'", function(err, results) {
         if (err) return console.error('Error running query', err);
 
-        res.send(200);
-        res.end();
+        setTimeout(function() {
+            client.query("UPDATE robokorr SET current_command = '%DNTHNG'", function(err, results) {
+                if (err) return console.error('Error running query', err);
+
+                res.send(200);
+                res.end();
+            });
+        }, 2000);
     });
 });
 
