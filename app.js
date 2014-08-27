@@ -20,23 +20,19 @@ app.get('/', function(req, res) {
 });
 
 app.get('/move', function(req, res) {
-    client.query("UPDATE robokorr SET current_command = 'MVFRWRD'", function(err, results) {
+    client.query("UPDATE robokorr SET current_command = '%MVFRWRD'", function(err, results) {
         if (err) return console.error('Error running query', err);
 
-        console.log(results);
-
-        res.send(results);
+        res.send(200);
         res.end();
     });
 });
 
 app.get('/stop', function(req, res) {
-    client.query("UPDATE robokorr SET current_command = 'DNTHNG'", function(err, results) {
+    client.query("UPDATE robokorr SET current_command = '%DNTHNG'", function(err, results) {
         if (err) return console.error('Error running query', err);
 
-        console.log(results);
-
-        res.send(results);
+        res.send(200);
         res.end();
     });
 });
