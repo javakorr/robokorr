@@ -19,8 +19,17 @@ app.get('/', function(req, res) {
     sendView(req, res, 'index');
 });
 
-app.get('/move', function(req, res) {
+app.get('/forward', function(req, res) {
     client.query("UPDATE robokorr SET current_command = '%MVFRWRD'", function(err, results) {
+        if (err) return console.error('Error running query', err);
+
+        res.send(200);
+        res.end();
+    });
+});
+
+app.get('/back', function(req, res) {
+    client.query("UPDATE robokorr SET current_command = '%MVBCK'", function(err, results) {
         if (err) return console.error('Error running query', err);
 
         res.send(200);
@@ -30,6 +39,24 @@ app.get('/move', function(req, res) {
 
 app.get('/stop', function(req, res) {
     client.query("UPDATE robokorr SET current_command = '%DNTHNG'", function(err, results) {
+        if (err) return console.error('Error running query', err);
+
+        res.send(200);
+        res.end();
+    });
+});
+
+app.get('/left', function(req, res) {
+    client.query("UPDATE robokorr SET current_command = '%TRNLFT'", function(err, results) {
+        if (err) return console.error('Error running query', err);
+
+        res.send(200);
+        res.end();
+    });
+});
+
+app.get('/right', function(req, res) {
+    client.query("UPDATE robokorr SET current_command = '%TRNRGHT'", function(err, results) {
         if (err) return console.error('Error running query', err);
 
         res.send(200);
