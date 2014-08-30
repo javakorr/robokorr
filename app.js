@@ -68,8 +68,19 @@ app.get('/get_command', function(req, res) {
     client.query('SELECT * FROM robokorr', function(err, results) {
         if (err) return console.error('Error running query', err);
 
-        res.send(results.rows[0].current_command);
+        var command = results.rows[0].current_command;
+
+        res.send(command);
         res.end();
+
+        if (command == '%TRNLFT' || command == '%TRNRGHT') {
+            client.query("UPDATE robokorr SET current_command = '%DNTHNG'", function(err, results) {
+                if (err) return console.error('Error running query', err);
+
+                res.send(200);
+                res.end();
+            });
+        }
     });
 });
 
