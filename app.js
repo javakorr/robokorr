@@ -76,9 +76,6 @@ app.get('/get_command', function(req, res) {
         if (command == '%TRNLFT' || command == '%TRNRGHT') {
             client.query("UPDATE robokorr SET current_command = '%DNTHNG'", function(err, results) {
                 if (err) return console.error('Error running query', err);
-
-                res.send(200);
-                res.end();
             });
         }
     });
