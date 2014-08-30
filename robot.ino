@@ -12,7 +12,7 @@ String prev_command = String("DNTHNG");
 boolean flag = 0;
  
 char ssid[] = "TP-LINK_929252";      //  your network SSID (name)
-char pass[] = "Jvk0rr3o91";   // your network password
+char pass[] = "";   // your network password
 int keyIndex = 0;            // your network key Index number (needed only for WEP)
 
 int status = WL_IDLE_STATUS;
